@@ -88,9 +88,20 @@ public class StorageFile {
         /* Note: Note the 'try with resource' statement below.
          * More info: https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html
          */
-        try (final Writer fileWriter =
-                     new BufferedWriter(new FileWriter(path.toFile()))) {
+        try {
+            if (!path.toFile().exists()) {
+                throw new FileNotFoundException();
+            }
+            writeFile(addressBook);
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("Storage file deleted! Recreating...");
+            writeFile(addressBook);
+        }
+    }
 
+    private void writeFile(AddressBook addressBook) throws StorageOperationException {
+        try (final Writer fileWriter =
+                new BufferedWriter(new FileWriter(path.toFile()))) {
             final AdaptedAddressBook toSave = new AdaptedAddressBook(addressBook);
             final Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
