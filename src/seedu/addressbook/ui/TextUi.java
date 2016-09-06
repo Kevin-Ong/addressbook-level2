@@ -4,6 +4,7 @@ import static seedu.addressbook.common.Messages.*;
 
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.person.Printable;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
 import java.io.InputStream;
@@ -116,7 +117,20 @@ public class TextUi {
             out.println(LINE_PREFIX + m.replace("\n", LS + LINE_PREFIX));
         }
     }
-
+    
+    /**
+     * Returns a concatenated version of the printable strings of each object.
+     */
+    public String getPrintableString(Printable... printables) {
+        String s = "";
+        for (Printable printable : printables) {
+            s += printable.getPrintableString() + ", ";
+        }
+        
+        s = s.substring(0, s.length() - 2);
+        return s;
+    }
+    
     /**
      * Shows the result of a command execution to the user. Includes additional formatting to demarcate different
      * command execution segments.
