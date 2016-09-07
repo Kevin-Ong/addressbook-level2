@@ -4,20 +4,13 @@ import seedu.addressbook.data.exception.IllegalValueException;
 
 public abstract class Contact {
     
-    public static final String EXAMPLE;
-    public static final String MESSAGE_CONSTRAINTS;
-    public static final String VALIDATION_REGEX;
+    public static String EXAMPLE;
+    public static String MESSAGE_CONSTRAINTS;
+    public static String VALIDATION_REGEX;
     
-    public final String value;
-    private boolean isPrivate;
+    public String value;
     
-    public Contact(String value, boolean isPrivate) throws IllegalValueException {
-        this.isPrivate = isPrivate;
-        value = value.trim();
-        if (!isValid(value)) {
-            throw new IllegalValueException(MESSAGE_CONSTRAINTS);
-        }
-        this.value = value;
+    protected Contact() {
     }
     
     /**
@@ -42,9 +35,5 @@ public abstract class Contact {
     @Override
     public int hashCode() {
         return value.hashCode();
-    }
-
-    public boolean isPrivate() {
-        return isPrivate;
     }
 }

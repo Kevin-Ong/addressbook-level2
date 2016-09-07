@@ -8,12 +8,6 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Email extends Contact {
 
-    public static final String EXAMPLE = "valid@e.mail";
-    public static final String MESSAGE_EMAIL_CONSTRAINTS =
-            "Person emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
-
-    public final String value;
     private boolean isPrivate;
 
     /**
@@ -22,38 +16,18 @@ public class Email extends Contact {
      * @throws IllegalValueException if given email address string is invalid.
      */
     public Email(String email, boolean isPrivate) throws IllegalValueException {
+        this.EXAMPLE = "valid@e.mail";
+        this.MESSAGE_CONSTRAINTS =
+                "Person emails should be 2 alphanumeric/period strings separated by '@'";
+        this.VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+        
         this.isPrivate = isPrivate;
         email = email.trim();
-        if (!isValidEmail(email)) {
-            throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
+        if (!this.isValid(email)) {
+            throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
         this.value = email;
     }
-
-    /**
-     * Checks if a given string is a valid person email.
-     */
-    public static boolean isValidEmail(String test) {
-        return test.matches(EMAIL_VALIDATION_REGEX);
-    }
-
-    @Override
-    public String toString() {
-        return value;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Email // instanceof handles nulls
-                && this.value.equals(((Email) other).value)); // state check
-    }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
-
 
     public boolean isPrivate() {
         return isPrivate;

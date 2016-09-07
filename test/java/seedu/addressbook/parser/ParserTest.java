@@ -263,7 +263,7 @@ public class ParserTest {
 
     private static String convertPersonToAddCommandString(ReadOnlyPerson person) {
         String addCommand = "add "
-                + person.getName().fullName
+                + person.getName().value
                 + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
                 + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
                 + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value;
